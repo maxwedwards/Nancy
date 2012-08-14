@@ -52,6 +52,7 @@ namespace Nancy.ModelBinding
                     item.SetValue(instance, value);
                 }
             }
+
         }
     }
 }
