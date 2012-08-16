@@ -83,7 +83,7 @@ namespace Nancy.ModelBinding
             return bindingContext.Model;
         }
 
-		public IDictionary<string, string> GetDataFields(NancyContext context)
+		private IDictionary<string, string> GetDataFields(NancyContext context)
         {
             var dictionaries = new IDictionary<string, string>[]
                 {
@@ -114,6 +114,7 @@ namespace Nancy.ModelBinding
 				return boundProperties;
 			}
 		}
+
         private BindingContext CreateBindingContext(NancyContext context, Type modelType, IEnumerable<string> blackList)
         {
             return new BindingContext
