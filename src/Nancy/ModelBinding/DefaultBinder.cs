@@ -59,13 +59,10 @@ namespace Nancy.ModelBinding
         /// <returns>Bound model</returns>
         public object Bind(NancyContext context, Type modelType, params string[] blackList)
         {
-<<<<<<< .merge_file_hxwN6P
-            var bindingContext = this.CreateBindingContext(context, modelType, blackList);
-=======
+
 			boundProperties = new List<PropertyInfo>();
 
 			var bindingContext = this.CreateBindingContext(context, modelType, blackList);
->>>>>>> .merge_file_gX6dPv
 
             var bodyDeserializedModel = this.DeserializeRequestBody(bindingContext);
 
@@ -87,7 +84,6 @@ namespace Nancy.ModelBinding
             return bindingContext.Model;
         }
 
-<<<<<<< .merge_file_hxwN6P
         private BindingContext CreateBindingContext(NancyContext context, Type modelType, IEnumerable<string> blackList)
         {
             return new BindingContext
@@ -101,10 +97,7 @@ namespace Nancy.ModelBinding
             };
         }
 
-        private IDictionary<string, string> GetDataFields(NancyContext context)
-=======
-		public IDictionary<string, string> GetDataFields(NancyContext context)
->>>>>>> .merge_file_gX6dPv
+		private IDictionary<string, string> GetDataFields(NancyContext context)
         {
             var dictionaries = new IDictionary<string, string>[]
                 {
@@ -135,18 +128,6 @@ namespace Nancy.ModelBinding
 				return boundProperties;
 			}
 		}
-        private BindingContext CreateBindingContext(NancyContext context, Type modelType, IEnumerable<string> blackList)
-        {
-            return new BindingContext
-            {
-                Context = context,
-                DestinationType = modelType,
-                Model = CreateModel(modelType),
-                ValidModelProperties = GetProperties(modelType, blackList),
-                RequestData = this.GetDataFields(context),
-                TypeConverters = this.typeConverters.Concat(this.defaults.DefaultTypeConverters),
-            };
-        }
 
         private void BindProperty(PropertyInfo modelProperty, string stringValue, BindingContext context)
         {
@@ -167,11 +148,7 @@ namespace Nancy.ModelBinding
             }
         }
 
-<<<<<<< .merge_file_hxwN6P
-        private static void SetPropertyValue(PropertyInfo modelProperty, object model, object value)
-=======
         private void SetPropertyValue(PropertyInfo modelProperty, object model, object value)
->>>>>>> .merge_file_gX6dPv
         {
             // TODO - catch reflection exceptions?
             modelProperty.SetValue(model, value, null);
