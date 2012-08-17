@@ -472,11 +472,12 @@ namespace Nancy.Tests.Unit.ModelBinding
         public void Should_be_able_to_record_which_properties_have_been_bound()
         {
             // Given
-            var binder = this.GetBinder();
+            var typeConverters = new ITypeConverter[] {new CollectionConverter(), new FallbackConverter(),};
+            var binder = this.GetBinder(typeConverters);
 
             var context = CreateContextWithHeader("Content-Type", new[] { "application/xml" });
             context.Request.Query["StringProperty"] = "Test";
-            context.Parameters["IntProperty"] = "0";
+            context.Request.Form["IntProperty"] = "0";
 
             // When
             var result = (TestModel)binder.Bind(context, typeof(TestModel));

@@ -1,6 +1,8 @@
 ﻿
 
 
+using System.Reflection;
+
 namespace Nancy.Tests.Unit.ModelBinding
 {
     using System;
@@ -74,6 +76,16 @@ namespace Nancy.Tests.Unit.ModelBinding
             public bool CanBind(Type modelType)
             {
                 return modelType == typeof (TestModel);
+            }
+
+            public IEnumerable<PropertyInfo> BoundProperties
+            {
+                get
+                {
+                    return from prop in typeof(TestModel).GetProperties()
+                           where prop.Name == "StringProperty"
+                           select prop;
+                }
             }
         }
 
