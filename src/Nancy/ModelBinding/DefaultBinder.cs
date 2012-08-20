@@ -59,7 +59,6 @@ namespace Nancy.ModelBinding
         /// <returns>Bound model</returns>
         public object Bind(NancyContext context, Type modelType, params string[] blackList)
         {
-
 			boundProperties = new List<PropertyInfo>();
 
 			var bindingContext = this.CreateBindingContext(context, modelType, blackList);
@@ -82,19 +81,6 @@ namespace Nancy.ModelBinding
             }
 
             return bindingContext.Model;
-        }
-
-        private BindingContext CreateBindingContext(NancyContext context, Type modelType, IEnumerable<string> blackList)
-        {
-            return new BindingContext
-            {
-                Context = context,
-                DestinationType = modelType,
-                Model = CreateModel(modelType),
-                ValidModelProperties = GetProperties(modelType, blackList),
-                RequestData = this.GetDataFields(context),
-                TypeConverters = this.typeConverters.Concat(this.defaults.DefaultTypeConverters),
-            };
         }
 
 		private IDictionary<string, string> GetDataFields(NancyContext context)
@@ -128,6 +114,19 @@ namespace Nancy.ModelBinding
 				return boundProperties;
 			}
 		}
+
+        private BindingContext CreateBindingContext(NancyContext context, Type modelType, IEnumerable<string> blackList)
+        {
+            return new BindingContext
+            {
+                Context = context,
+                DestinationType = modelType,
+                Model = CreateModel(modelType),
+                ValidModelProperties = GetProperties(modelType, blackList),
+                RequestData = this.GetDataFields(context),
+                TypeConverters = this.typeConverters.Concat(this.defaults.DefaultTypeConverters),
+            };
+        }
 
         private void BindProperty(PropertyInfo modelProperty, string stringValue, BindingContext context)
         {
