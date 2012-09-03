@@ -791,6 +791,17 @@ namespace Nancy.Testing
             /// Configures the boostrapper to register the provided <see cref="NancyModule"/> instance.
             /// </summary>
             /// <param name="module">The <see cref="NancyModule"/> instance to register.</param>
+            /// <returns>A reference to the current <see cref="ConfigurableBoostrapperConfigurator"/>.</returns>
+            public ConfigurableBoostrapperConfigurator Module(NancyModule module)
+            {
+                this.bootstrapper.catalog.RegisterModuleInstance(module, module.GetType().FullName);
+                return this;
+            }
+
+            /// <summary>
+            /// Configures the boostrapper to register the provided <see cref="NancyModule"/> instance.
+            /// </summary>
+            /// <param name="module">The <see cref="NancyModule"/> instance to register.</param>
             /// <param name="moduleKey">The module key of the module that is being registered.</param>
             /// <returns>A reference to the current <see cref="ConfigurableBoostrapperConfigurator"/>.</returns>
             public ConfigurableBoostrapperConfigurator Module(NancyModule module, string moduleKey)
@@ -1105,19 +1116,6 @@ namespace Nancy.Testing
             {
                 this.bootstrapper.registeredTypes.Add(
                     new TypeRegistration(typeof(IRequestDispatcher), typeof(T)));
-
-                return this;
-            }
-
-            /// <summary>
-            /// Configures the bootstrapper to use the provided instance of <see cref="IResponseProcessor"/>.
-            /// </summary>
-            /// <param name="responseProcessor">The <see cref="IResponseProcessor"/> instance that should be used by the bootstrapper.</param>
-            /// <returns>A reference to the current <see cref="ConfigurableBoostrapperConfigurator"/>.</returns>
-            public ConfigurableBoostrapperConfigurator ResponseProcessor(IResponseProcessor responseProcessor)
-            {
-                this.bootstrapper.registeredInstances.Add(
-                    new InstanceRegistration(typeof(IResponseProcessor), responseProcessor));
 
                 return this;
             }
